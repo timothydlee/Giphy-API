@@ -11,9 +11,10 @@ $(document).ready(function(){
 		//set to the input, which is declared in $("#addShow").on("click" function(){})
 		var userShow = $(this).attr("data-name");
 		//Setting variable to hold the user input to dynamically generate URL to query in the AJAX call
-		var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + userShow + "&api_key=dc6zaTOxFJmzC";
+		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + userShow + "&api_key=dc6zaTOxFJmzC";
 		//AJAX call to return the JSON of the searched query
 		$.ajax({url: queryURL, method: 'GET'}).done(function(response) {
+			console.log(response);
 			//For loop to return only 10 gifs
 			for (var i = 0; i<10; i++){
 				//Generating generic div to dynamically generate divs with the class "show"
@@ -25,13 +26,15 @@ $(document).ready(function(){
 				//Setting variable to dynamically generate p elements that will disclose the rating of 
 				//each gif
 				var pOne = $("<p>").text("Rating: " + rated);
-				//Setting variable that will display the gif at the index position of the searched query
-				var gifURL = $("<img src='" + gif.images.downsized.url + "'/>");
+				//Setting variable to easily reference the still image of the gif being searched for
+				var gifStill = gif.images.original_still.url;
+				//Dynamically generating the pictures into the gifs area layout
+				var gifStillURL = $("<img value='" + gifStill + "' src='" + gifStill + "' />");
+				console.log(gifStill);
 				//Appending pOne to showDiv
 				showDiv.append(pOne);
 				//Sets the HTML of the variable showDiv to the gifURL which contains the running gif
-				showDiv.append(gifURL);
-				console.log(rated);
+				showDiv.append(gifStillURL);
 				//ID showGifs in HTML appends complete showDiv variable, which contains the running gif
 				//as well as the rating 
 				$("#showGifs").append(showDiv);
@@ -71,7 +74,12 @@ $(document).ready(function(){
 		return false;
 	});
 
-	//			Generic Click Element with "show" Class
+	$("#showGifs").on("click", function(){
+		var hold = $(this).val();
+		console.log(hold);
+	});
+
+	//			Generic Click Element with Class "show" 
 	// ========================================================
 	//In the document, whenever a click occurs on an element with class "show", it will run function userShowInput
 	$(document).on("click", ".show", userShowInput);
@@ -80,3 +88,7 @@ $(document).ready(function(){
 	renderButtons();
 
 }); //Ends overall document ready function
+
+
+				//Setting variable that will display the gif at the index position of the searched query
+				// var gifURL = $("<img src='" + gif.images.downsized.url + "'/>");
