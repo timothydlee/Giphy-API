@@ -4,10 +4,73 @@
           GENERAL
 
 ************************/
+body{
+	background-color: #035E7B;
+}
 
+button, 
+div, 
+form, 
+input{
+	margin: 10px;
+	color: #035E7B;
+}
 
 /************************
 
-       QUESTION BOX
+          Buttons
 
 ************************/
+button,
+#addShow{
+	color: #EFF1C5;
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	border-bottom: 2px solid;
+	background-color: #035E7B;
+	font: 700 24px/150% "Open Sans Condensed", sans-serif;
+	transition: all ease-in-out 0.5s;
+}
+
+#addShow:hover,
+button:hover{
+	color: #002E2C;
+	border-color: #002E2C;	
+}
+/************************
+
+        Input Field
+
+************************/
+#showInput{
+	font: 300 24px/150% "Open Sans Condensed", sans-serif;
+	color: #002E2C;	
+}
+
+#show-form{
+	position: fixed;
+	bottom: 0;
+	right: 0;
+}
+
+/************************
+
+   Area with added Gifs
+
+************************/
+
+.showGif{
+	display: inline-block;	
+	vertical-align: top;
+	color: #EFF1C5;
+	font: 300 24px/150% "Open Sans Condensed", sans-serif;
+}
+
+img{
+	max-height: 100%;
+	width: 400px;
+	padding: 20px;
+	clear: both;
+	margin: 20px;
+}
