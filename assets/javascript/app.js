@@ -28,16 +28,28 @@ $(document).ready(function(){
 				var pOne = $("<p>").text("Rating: " + rated);
 				//Setting variable to easily reference the still image of the gif being searched for
 				var gifStill = gif.images.original_still.url;
-				//Dynamically generating the pictures into the gifs area layout
-				var gifStillURL = $("<img value='" + gifStill + "' src='" + gifStill + "' />");
-				console.log(gifStill);
+				//Setting variable to easily reference the animated image of the gif being searched for
+				var gifAnimated = gif.images.original.url;
+				//Creating variable to hold the dynamically create img tag
+				var gifURL = $("<img>");
+				//Assigning attributes data-name, state of still and data animated and data still states and src and alt to the gifURL
+				gifURL.attr(
+				{
+					"src": gifStill, 
+					"data-still": gifStill, 
+					"data-animate": gifAnimated, 
+					"data-state": "still",
+					"alt": "giphy " + i
+				}).addClass("gif");
+				console.log(gifURL);
 				//Appending pOne to showDiv
 				showDiv.append(pOne);
 				//Sets the HTML of the variable showDiv to the gifURL which contains the running gif
-				showDiv.append(gifStillURL);
+				showDiv.append(gifURL);
 				//ID showGifs in HTML appends complete showDiv variable, which contains the running gif
 				//as well as the rating 
 				$("#showGifs").append(showDiv);
+				$("#showGifs").append('<img src="http://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-still="http://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-animate="http://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200.gif" data-state="still" class="gif">');
 			};
 		});
 	};
@@ -53,7 +65,7 @@ $(document).ready(function(){
 			//Using jQuery call to create buttons
 			var x = $("<button>");
 			//Adding class "show", attribute data-name "name of the show in the array", and then text "name of the show in the array" to each new button 
-			x.addClass("show").attr("data-name", showsArray[i]).text(showsArray[i]);
+			x.attr("data-name", showsArray[i]).addClass("show").text(showsArray[i]);
 			//Appends each new button.
 			$("#showButtons").append(x);
 		}
@@ -63,6 +75,7 @@ $(document).ready(function(){
 	// ========================================================
 	//Handles click action of when Add Show button is clicked
 	$("#addShow").on("click", function(){
+		console.log("are we in here?");
 		//Variable that holds the trimmed value of the form field input ("#showInput")
 		var newShow = $("#showInput").val().trim();
 		//Push newShow into the array
@@ -74,10 +87,20 @@ $(document).ready(function(){
 		return false;
 	});
 
-	$("#showGifs").on("click", function(){
-		var hold = $(this).val();
-		console.log(hold);
+	//		Click event handler to pause and unpause gifs
+	// ========================================================
+
+	//DOESN'T WORK FOR DYNAMICALLY GENERATED GIF IMAGES
+	$(".gif").on("click", function(){
+		console.log("are we in the click");
+		var state = $(this).attr("data-state");
+		if ( state == "still"){
+			$(this).attr({"src": $(this).data("animate"), "data-state": "animate"});
+		} else {
+			$(this).attr({"src": $(this).data("stilL"), "data-state": "still"});
+		}
 	});
+
 
 	//			Generic Click Element with Class "show" 
 	// ========================================================
