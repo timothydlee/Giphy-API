@@ -49,8 +49,20 @@ $(document).ready(function(){
 				//ID showGifs in HTML appends complete showDiv variable, which contains the running gif
 				//as well as the rating 
 				$("#showGifs").append(showDiv);
-				$("#showGifs").append('<img src="http://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-still="http://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-animate="http://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200.gif" data-state="still" class="gif">');
 			};
+
+			//		Click event handler to pause and unpause gifs
+			// ========================================================
+			//On click of element with the class "gif"
+			var gifClick = $(".gif").on("click", function(){
+				console.log("are we in the click");
+				var state = $(this).attr("data-state");
+				if ( state == "still"){
+					$(this).attr({"src": $(this).data("animate"), "data-state": "animate"});
+				} else {
+					$(this).attr({"src": $(this).data("still"), "data-state": "still"});
+				};
+			});
 		});
 	};
 
@@ -68,7 +80,7 @@ $(document).ready(function(){
 			x.attr("data-name", showsArray[i]).addClass("show").text(showsArray[i]);
 			//Appends each new button.
 			$("#showButtons").append(x);
-		}
+		};
 	};
 
 	//					Clicking Add Show
@@ -87,19 +99,6 @@ $(document).ready(function(){
 		return false;
 	});
 
-	//		Click event handler to pause and unpause gifs
-	// ========================================================
-
-	//DOESN'T WORK FOR DYNAMICALLY GENERATED GIF IMAGES
-	$(".gif").on("click", function(){
-		console.log("are we in the click");
-		var state = $(this).attr("data-state");
-		if ( state == "still"){
-			$(this).attr({"src": $(this).data("animate"), "data-state": "animate"});
-		} else {
-			$(this).attr({"src": $(this).data("stilL"), "data-state": "still"});
-		}
-	});
 
 
 	//			Generic Click Element with Class "show" 
@@ -111,7 +110,3 @@ $(document).ready(function(){
 	renderButtons();
 
 }); //Ends overall document ready function
-
-
-				//Setting variable that will display the gif at the index position of the searched query
-				// var gifURL = $("<img src='" + gif.images.downsized.url + "'/>");
