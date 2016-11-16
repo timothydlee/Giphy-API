@@ -50,19 +50,6 @@ $(document).ready(function(){
 				//as well as the rating 
 				$("#showGifs").append(showDiv);
 			};
-
-			//		Click event handler to pause and unpause gifs
-			// ========================================================
-			//On click of element with the class "gif"
-			var gifClick = $(".gif").on("click", function(){
-				console.log("are we in the click");
-				var state = $(this).attr("data-state");
-				if ( state == "still"){
-					$(this).attr({"src": $(this).data("animate"), "data-state": "animate"});
-				} else {
-					$(this).attr({"src": $(this).data("still"), "data-state": "still"});
-				};
-			});
 		});
 	};
 
@@ -105,6 +92,22 @@ $(document).ready(function(){
 	// ========================================================
 	//In the document, whenever a click occurs on an element with class "show", it will run function userShowInput
 	$(document).on("click", ".show", userShowInput);
+
+	//		Click event handler to pause and unpause gifs
+	// ========================================================
+	//On click of element with the class "gif" in the document body
+	$(document.body).on("click", ".gif", function() {
+		//Creating variable to store the clicked element's data-state value, which is set to either still or animate
+		var state = $(this).attr("data-state");
+		//If that state is still
+		if ( state == "still"){
+			//Clicked element src URL will be switched from static image to animated gif URL, data-state will be changed to animate
+			$(this).attr({"src": $(this).data("animate"), "data-state": "animate"});
+		} else {
+			//Reverse happens if state is animate
+			$(this).attr({"src": $(this).data("still"), "data-state": "still"});
+		};
+	});
 
 	//Renders buttons for the first page load.
 	renderButtons();
